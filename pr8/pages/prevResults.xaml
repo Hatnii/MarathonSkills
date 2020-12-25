@@ -1,0 +1,78 @@
+﻿<Page x:Class="pr8.pages.prevResults"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pr8.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="548"
+      Title="prevResults">
+    <Page.Resources>
+        <Style x:Key="NiceBtn"  TargetType="Button">
+            <Setter Property="OverridesDefaultStyle" Value="True"/>
+            <Setter Property="Background" Value="#FF3B3E46"/>
+            <Setter Property="Foreground" Value="#FFFFFF"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="0"  CornerRadius="3"
+                                            BorderBrush="Black"
+                                            Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" 
+                                                    Value="#FF424674"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation 
+                                            Storyboard.TargetProperty="Margin"
+                                            Duration="0:0:0.100" To="2 2 0 0"/>
+                                        <ColorAnimation 
+                                                        Storyboard.TargetProperty=
+                                                        "Background.Color" 
+                                                        To="#FF424674" 
+                                                        Duration="0:0:0.0002"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation 
+                                            Storyboard.TargetProperty="Margin"
+                                            Duration="0:0:0.100" To="0"/>
+                                        <ColorAnimation 
+                                                        Storyboard.TargetProperty=
+                                                        "Background.Color" 
+                                                        To="#FF3B3E46" 
+                                                        Duration="0:0:0.0002"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.ColumnSpan="2">
+            <Button Name="LoadPrevDataBtn" Canvas.Left="411" Canvas.Top="10" Content="Загрузить данные" Style="{DynamicResource NiceBtn}" Width="127" Height="30" Foreground="White" Click="LoadPrevDataBtn_Click"/>
+            <TextBlock   Text="Всего бегунов:" Foreground="White" FontSize="14" FontWeight="Bold" Canvas.Left="10" Canvas.Top="10" Height="30"/>
+            <TextBlock Name="prevResTXT"  Text="Всего бегунов:  0 " Foreground="White" FontSize="14" FontWeight="Bold" Canvas.Left="10" Canvas.Top="10" Height="30"/>
+        </Canvas>
+        <Canvas Grid.Row="1" Grid.ColumnSpan="2">
+            <DataGrid Name="MainDataGrid" Width="528" Height="245" Margin="10,0,10,5" />
+        </Canvas>
+    </Grid>
+</Page>

@@ -1,0 +1,138 @@
+﻿<Page x:Class="pr8.pages.BMI"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:pr8.pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="548"
+      Title="BMI">
+    <Page.Resources>
+        <Style TargetType="Button">
+                <Setter Property="OverridesDefaultStyle" Value="True"/>
+                <Setter Property="Background" Value="#FF3B3E46"/>
+                <Setter Property="Foreground" Value="#FFFFFF"/>               
+                <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Name="Border" BorderThickness="0"  CornerRadius="3"
+                                                BorderBrush="Black"
+                                                Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                                  VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" 
+                                                        Value="#FF424674"/>
+                            </Trigger>
+                            <EventTrigger RoutedEvent="PreviewMouseDown">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation 
+                                                Storyboard.TargetProperty="Margin"
+                                                Duration="0:0:0.100" To="2 2 0 0"/>
+                                        <ColorAnimation 
+                                                            Storyboard.TargetProperty=
+                                                            "Background.Color" 
+                                                            To="#FF424674" 
+                                                            Duration="0:0:0.0002"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                            <EventTrigger RoutedEvent="PreviewMouseUp">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <ThicknessAnimation 
+                                                Storyboard.TargetProperty="Margin"
+                                                Duration="0:0:0.100" To="0"/>
+                                        <ColorAnimation 
+                                                            Storyboard.TargetProperty=
+                                                            "Background.Color" 
+                                                            To="#FF3B3E46" 
+                                                            Duration="0:0:0.0002"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+       
+
+        <Style x:Key="TB" TargetType="TextBox">
+            <Setter Property="Background" Value="#FF101010"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="170"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="BorderBrush" Value="#FF2D333D"/>
+            <Setter Property="Padding" Value="10 0 0 0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Grid x:Name="root" Height="{Binding TemplateBinding}"
+                              Width="{Binding TemplateBinding}" 
+                              SnapsToDevicePixels="True" >
+                            <Border x:Name="Background" BorderThickness="1" 
+                                    CornerRadius="2" 
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"/>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                    BorderThickness="0" 
+                                    Padding="{TemplateBinding Padding}"
+                                    IsTabStop="False"
+                                    Background="{x:Null}"
+                                    TextElement.Foreground=
+                                          "{TemplateBinding Foreground}"/>
+                        </Grid>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="#FF292C59"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="BorderBrush" Value="White"/>
+                                <Setter Property="Background" Value="#FF292C59"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Canvas Grid.ColumnSpan="2" >
+            <Label HorizontalContentAlignment="Center" Content="BMI калькулятор" Foreground="White" FontWeight="Bold" FontSize="20" Canvas.Left="185.5" Width="177" Height="37"/>
+        </Canvas>
+        <Canvas Grid.Row="1">
+
+        </Canvas>
+        <Canvas Grid.Row="1">
+            <TextBlock TextAlignment="Justify"  TextWrapping="Wrap" Width="528" Foreground="White" LineHeight="10" Height="98"
+                       Text="С помощью данного клькулятора вы можете рассчитать ваш индекс массы тела, ИМТ(от англ. Body mass index - BMI). С помощью индекса массы тела вы можете проверить соответсвие между массой вашего тела и вашим ростом и узнать, имеется ли у вас избыточный вес, или же наоборот, не страдаете ли вы недостатком веса. Чтобы рассчитать индекс массы вашего тела (ИМТ) заполните в калькуляторе поля, соответствующие значениям вашего роста и веса." Canvas.Left="10" FontWeight="Bold"/>
+            <TextBlock TextAlignment="Center" Name="ResultTxT"  TextWrapping="Wrap" Width="225" Foreground="White" Canvas.Top="134" LineHeight="6" Height="70"
+                       Text="Введите данные " Canvas.Left="300" FontWeight="Bold"/>
+            <TextBox Name="HeightBox"  Canvas.Left="91" Canvas.Top="125"  IsManipulationEnabled="True" Style="{DynamicResource TB}" TextChanged="HeightBox_TextChanged"/>
+            <TextBox Name="WeightBox"  Canvas.Left="91" Canvas.Top="166"  Style="{DynamicResource TB}" TextChanged="WeightBox_TextChanged"/>
+            <TextBlock IsHitTestVisible="False" x:Name="HeightWater"
+                   Text="Введите рост" Grid.Row="1" VerticalAlignment="Top" Foreground="#FF535559" Canvas.Left="95" Canvas.Top="134"/>
+
+            <TextBlock IsHitTestVisible="False" x:Name="WeightWater"
+                   Text="Введите вес" Grid.Row="1" VerticalAlignment="Top" Foreground="#FF535559" Canvas.Left="95" Canvas.Top="176"/>
+
+
+            <TextBlock Text="Рост(СМ):" Canvas.Left="25" Canvas.Top="125" Foreground="White" FontSize="13" FontWeight="Bold"/>
+            <TextBlock Text="Вес(кг):" Canvas.Left="33" Canvas.Top="166" Foreground="White" FontSize="13" FontWeight="Bold"/>
+            <Button Name="CountBtn" Content="Рассчитать" Canvas.Left="25" Canvas.Top="210" Click="CountBtn_Click"  Width="110" Height="30"/>
+            <Button Name="EraseBtn" Content="Очистить поля" Canvas.Left="151" Canvas.Top="210" Click="EraseBtn_Click" Width="110" Height="30"/>
+        </Canvas>
+    </Grid>
+</Page>
